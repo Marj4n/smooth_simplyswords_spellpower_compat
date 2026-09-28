@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "smooth_simplyswords_spellpower_compat",
+  "version": "${version}",
+  "name": "Smooth SimplySwords SpellPower Compat",
+  "description": "Compatibility bridge for Simply Swords 1.70.2 and Spell Power 1.6.x on Minecraft 1.20.1.",
+  "authors": [
+    "Marj4n"
+  ],
+  "license": "All-Rights-Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "org.marj4n.smooth_simplyswords_spellpower_compat.SmoothSimplySwordsSpellPowerCompat"
+    ]
+  },
+  "mixins": [
+    "smooth_simplyswords_spellpower_compat.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "minecraft": "1.20.1",
+    "simplyswords": "=1.70.2-1.20.1",
+    "spell_power": ">=1.6.0 <1.7.0"
+  }
+}

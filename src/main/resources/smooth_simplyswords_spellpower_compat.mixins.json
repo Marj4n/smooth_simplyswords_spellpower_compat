@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.marj4n.smooth_simplyswords_spellpower_compat.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "FabricHelperMethodsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
