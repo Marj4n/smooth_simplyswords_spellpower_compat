@@ -30,16 +30,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = "net.sweenus.simplyswords.fabric.FabricHelperMethods", remap = false)
 public abstract class FabricHelperMethodsMixin {
 
-    @Inject(
-            method = "spellPowerAttribute",
-            at = @At("HEAD"),
-            cancellable = true,
-            remap = false
-    )
+    @Inject(method = "spellPowerAttribute", at = @At("HEAD"), cancellable = true, remap = false)
     private static void smoothCompat$spellPowerAttribute(
-            Identifier scalingId,
-            CallbackInfoReturnable<EntityAttribute> cir
-    ) {
+            Identifier scalingId, CallbackInfoReturnable<EntityAttribute> cir) {
         SpellSchool school = smoothCompat$resolveSchool(scalingId);
         cir.setReturnValue(smoothCompat$attribute(school));
     }
@@ -48,25 +41,24 @@ public abstract class FabricHelperMethodsMixin {
             method = "activeSpellSchoolDisplay",
             at = @At("HEAD"),
             cancellable = true,
-            remap = false
-    )
+            remap = false)
     private static void smoothCompat$activeSpellSchoolDisplay(
-            Identifier scalingId,
-            CallbackInfoReturnable<SpellSchoolDisplay> cir
-    ) {
+            Identifier scalingId, CallbackInfoReturnable<SpellSchoolDisplay> cir) {
         SpellSchool school = smoothCompat$resolveSchool(scalingId);
 
         if (school == null) {
-            Identifier fallback = SpellScalingAssignments.defaultSpellPowerSchool(scalingId)
-                    .orElse(new Identifier("spell_power", "arcane"));
+            Identifier fallback =
+                    SpellScalingAssignments.defaultSpellPowerSchool(scalingId)
+                            .orElse(new Identifier("spell_power", "arcane"));
             cir.setReturnValue(new SpellSchoolDisplay(fallback, Text.literal(fallback.toString())));
             return;
         }
 
         EntityAttribute attribute = smoothCompat$attribute(school);
-        Text name = attribute == null
-                ? Text.literal(school.id.toString())
-                : Text.translatable(attribute.getTranslationKey());
+        Text name =
+                attribute == null
+                        ? Text.literal(school.id.toString())
+                        : Text.translatable(attribute.getTranslationKey());
 
         cir.setReturnValue(new SpellSchoolDisplay(school.id, name));
     }
@@ -84,17 +76,15 @@ public abstract class FabricHelperMethodsMixin {
     @Unique
     private static SpellSchool smoothCompat$resolveSchool(Identifier scalingId) {
         Identifier configured = SpellScalingAssignments.spellPowerSchool(scalingId).orElse(null);
-        SpellSchool school = configured == null
-                ? null
-                : SpellSchools.getSchool(configured.toString());
+        SpellSchool school =
+                configured == null ? null : SpellSchools.getSchool(configured.toString());
 
         if (school != null) {
             return school;
         }
 
-        Identifier fallback = SpellScalingAssignments.defaultSpellPowerSchool(scalingId).orElse(null);
-        return fallback == null
-                ? null
-                : SpellSchools.getSchool(fallback.toString());
+        Identifier fallback =
+                SpellScalingAssignments.defaultSpellPowerSchool(scalingId).orElse(null);
+        return fallback == null ? null : SpellSchools.getSchool(fallback.toString());
     }
 }

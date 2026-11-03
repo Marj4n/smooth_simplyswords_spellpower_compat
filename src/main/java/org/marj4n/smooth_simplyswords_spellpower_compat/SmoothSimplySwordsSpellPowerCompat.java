@@ -10,6 +10,7 @@ public final class SmoothSimplySwordsSpellPowerCompat implements ModInitializer 
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Smooth SimplySwords SpellPower Compat loaded: bridging Simply Swords 1.70.2 to Spell Power 1.6.x.");
+        LOGGER.info(
+                "Smooth SimplySwords SpellPower Compat loaded: bridging Simply Swords 1.70.2 to Spell Power 1.6.x.");
     }
 }
